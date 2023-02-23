@@ -10,7 +10,7 @@
     <string name="electricianimg">electricianimg</string>
     <string name="othersimg">othersimg</string>
     <string name="services">Services</string>
-    <string name="menu">Menu</string>
+    <string name="menu">Home</string>
     <string name="dos">Description of service</string>
     <string name="username">Name of person providing service</string>
     <string name="address">Enter Address</string>
