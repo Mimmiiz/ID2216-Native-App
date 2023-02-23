@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@drawable/edittext_mandatory" />
+    <item android:drawable="@drawable/edittext_filled" />
+</selector>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<shape android:shape="rectangle"-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <corners android:radius="8dp" />-->
+<!--    <stroke android:width="2dp" android:color="@color/black" />-->
+<!--    <solid android:color="#FFFFFF"/>-->
+<!--</shape>-->
+
