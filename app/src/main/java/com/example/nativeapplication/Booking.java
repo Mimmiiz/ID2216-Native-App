@@ -115,7 +115,7 @@ public class Booking extends AppCompatActivity {
 
         else if (personName.equals("Vera Nilsson")) {
             serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Jane Smith");
+            serviceDetails.put("name", "Vera Nilsson");
             serviceDetails.put("service", "Men's and Womens's haircut");
             serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
             serviceDetails.put("price", personPrice);
