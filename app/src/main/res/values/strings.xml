@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">Native Application</string>
+    <string name="bookingTitle">Book a Time</string>
+    <string name="button_book_label">Book</string>
+    <string name="monday_short">MON</string>
+    <string name="tuesday_short">TUE</string>
+    <string name="wednesday_short">WED</string>
+    <string name="thursday_short">THU</string>
+    <string name="saturday_short">SAT</string>
+    <string name="friday_short">FRI</string>
+    <string name="sunday_short">SUN</string>
+    <string name="previous_week_description">Go to the previous week</string>
+    <string name="next_week_description">Go to the next week</string>
+    <string name="default_week">Week 1</string>
+    <string name="date_text_default">1</string>
+    <string name="default_booking_start_end_dates">1 Jan - 6 Jan</string>
     <string name="plumber">Plumber</string>
     <string name="salon">Salon</string>
     <string name="electrician">Electrician</string>
@@ -10,7 +24,7 @@
     <string name="electricianimg">electricianimg</string>
     <string name="othersimg">othersimg</string>
     <string name="services">Services</string>
-    <string name="menu">Menu</string>
+    <string name="menu">Home</string>
     <string name="dos">Description of service</string>
     <string name="username">Name of person providing service</string>
     <string name="address">Enter Address</string>
@@ -20,7 +34,6 @@
     <string name="confirm">Confirm</string>
     <string name="businessimg">businessimg</string>
     <string name="Order">Order Confirmation</string>
-
     <string name="checkout">Checkout</string>
     <string name="fn">First name</string>
     <string name="ln">Last name</string>
@@ -31,4 +44,5 @@
     <string name="phonen">Phone number</string>
     <string name="candainformation">Contact and Address Information</string>
     <string name="confirmbutton">Confirm</string>
+    <string name="book_button_message">Please select a time</string>
 </resources>

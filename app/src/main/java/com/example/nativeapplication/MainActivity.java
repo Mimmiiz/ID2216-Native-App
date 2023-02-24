@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton imageButton1 = findViewById(R.id.imageButton9);
         imageButton1.setOnClickListener(v -> {
             String value= "Appliances,Switch & Socket,Wiring,Light";
-            Intent i = new Intent(MainActivity.this, OrderConfirmation.class);
+            Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
         });
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Button myButton2 = findViewById(R.id.button11);
         myButton2.setOnClickListener(v -> {
             String value= "Appliances,Switch & Socket,Wiring,Light";
-            Intent i = new Intent(MainActivity.this, OrderConfirmation.class);
+            Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
         });
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton imageButton2 = findViewById(R.id.imageButton10);
         imageButton2.setOnClickListener(v -> {
             String value= "Drainage Pipes,Basin & Toilets,Bath & Water Fittings,Grouting";
-            Intent i = new Intent(MainActivity.this, OrderConfirmation.class);
+            Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
         });
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         Button myButton3 = findViewById(R.id.button12);
         myButton3.setOnClickListener(v -> {
             String value= "Drainage Pipes,Basin & Toilets,Bath & Water Fittings,Grouting";
-            Intent i = new Intent(MainActivity.this, OrderConfirmation.class);
+            Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
         });
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton imageButton3 = findViewById(R.id.imageButton11);
         imageButton3.setOnClickListener(v -> {
             String value= "Baby Sitting,Furniture Repair,Drilling,Furniture Assembly";
-            Intent i = new Intent(MainActivity.this, OrderConfirmation.class);
+            Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
         });
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         Button myButton4 = findViewById(R.id.button13);
         myButton4.setOnClickListener(v -> {
             String value= "Baby Sitting,Furniture Repair,Drilling,Furniture Assembly";
-            Intent i = new Intent(MainActivity.this, OrderConfirmation.class);
+            Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
         });
