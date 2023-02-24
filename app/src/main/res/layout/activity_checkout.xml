@@ -29,7 +29,7 @@
     <TextView
         android:id="@+id/textView1"
         android:layout_width="163dp"
-        android:layout_height="158dp"
+        android:layout_height="115dp"
         android:layout_marginTop="32dp"
         android:background="@color/white"
         android:gravity="left"
@@ -44,7 +44,7 @@
     <TextView
         android:id="@+id/textView9"
         android:layout_width="163dp"
-        android:layout_height="158dp"
+        android:layout_height="115dp"
         android:layout_marginTop="32dp"
         android:background="@color/white"
         android:gravity="right"
@@ -74,29 +74,29 @@
 
     <EditText
         android:id="@+id/textView2"
-        android:layout_width="149dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittextbackground"
-        android:hint="@string/fn"
-        android:inputType="text"
+        android:layout_width="322dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="16dp"
         android:autofillHints="firstname"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cainformation" />
-
-    <EditText
-        android:id="@+id/textView3"
-        android:layout_width="149dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/edittextbackground"
         android:hint="@string/ln"
         android:inputType="text"
-        android:autofillHints="lastname"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/textView3"
+        android:layout_width="322dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="16dp"
+        android:autofillHints="lastname"
+        android:background="@drawable/edittextbackground"
+        android:hint="@string/fn"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cainformation" />
 
@@ -105,10 +105,10 @@
         android:layout_width="322dp"
         android:layout_height="29dp"
         android:layout_marginTop="16dp"
+        android:autofillHints="addressname"
         android:background="@drawable/edittextbackground"
         android:hint="@string/enteraddress"
         android:inputType="text"
-        android:autofillHints="addressname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,10 +119,10 @@
         android:layout_width="322dp"
         android:layout_height="29dp"
         android:layout_marginTop="16dp"
+        android:autofillHints="postal"
         android:background="@drawable/edittextbackground"
         android:hint="@string/postal"
         android:inputType="textPostalAddress"
-        android:autofillHints="postal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +181,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
