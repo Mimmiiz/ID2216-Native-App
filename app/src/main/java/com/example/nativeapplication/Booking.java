@@ -264,7 +264,7 @@ public class Booking extends AppCompatActivity {
 
         for (int i = 0; i < bookableTimes.length; i++) {
             LocalDateTime dateTime = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), Integer.parseInt(bookableTimes[i].substring(0, 2)), Integer.parseInt(bookableTimes[i].substring(3, 5)));
-            if (minDate.isBefore(dateTime.plusDays(1))) {
+            if (minDate.isBefore(dateTime.plusHours(1))) {
                 View bookableTimeCell = inflater.inflate(R.layout.bookable_times_cell, parent, false);
                 TextView textView = (TextView) bookableTimeCell.findViewById(R.id.bookable_time_cell);
                 textView.setText(bookableTimes[i]);
