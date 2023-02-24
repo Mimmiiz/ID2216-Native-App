@@ -101,14 +101,37 @@ public class Booking extends AppCompatActivity {
             serviceDetails.put("rating", (float) 3.8);
             serviceDetails.put("avatar", personAvatar);
         }
-        else {
+
+        else if (personName.equals("Daniel Lind")) {
             serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Bob Johnson");
+            serviceDetails.put("name", "Daniel Lind");
             serviceDetails.put("service", "Beard shaving and trimming");
             serviceDetails.put("description", "Beard grooming for all types of beards and styles. Price may increase if more products or time is needed.");
             serviceDetails.put("price", personPrice);
             serviceDetails.put("phoneNumber", "+46111111111");
             serviceDetails.put("rating", (float) 4.1);
+            serviceDetails.put("avatar", personAvatar);
+        }
+
+        else if (personName.equals("Vera Nilsson")) {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Jane Smith");
+            serviceDetails.put("service", "Men's and Womens's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 4.8);
+            serviceDetails.put("avatar", personAvatar);
+        }
+
+        else {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Paul George");
+            serviceDetails.put("service", "Men's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 4.3);
             serviceDetails.put("avatar", personAvatar);
         }
 
