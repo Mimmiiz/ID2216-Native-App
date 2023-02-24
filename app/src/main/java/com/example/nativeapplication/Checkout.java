@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,21 +20,29 @@ public class Checkout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        /* Uncomment when merged with Marias code
+        Bundle extras = getIntent().getExtras();
+        String[] leftPage = {"Details:", "", extras.getString("service"), "Time"+extras.getString("bookedTime"), "", "", "", "", "Total:"};
+        String[] rightPage = {"Contact information:", "", extras.getString("name"), extras.getString("phoneNumber"), "", "", "", "", extras.getString("price")};
+         */
+
+
         ConstraintLayout c_layout = (ConstraintLayout) findViewById(R.id.mainConstraint);
 
+        String[] leftPage = {"Details:", "", "Men's haircut", "Time: 12:30", "", "", "", "", "Total:"};
+        TextView description = findViewById(R.id.textView1);
+        populate(description, leftPage);
+
+        String[] rightPage = {"Contact information:", "", "Joe Biden", "+460000000", "", "", "", "", "250 SEK"};
+        TextView description1 = findViewById(R.id.textView9);
+        populate(description1, rightPage);
 
         Button checkoutBtn = findViewById(R.id.confbutton);
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (validate(c_layout)) {
-                    Intent i = new Intent(Checkout.this, OrderConfirmation.class);
-                    //i.putExtra("type", btn1.getText());
-
-                    startActivity(i);
-                }
-
+                if (validate(c_layout))
+                    startActivity(new Intent(Checkout.this, OrderConfirmation.class));
             }
         });
 
@@ -49,10 +59,14 @@ public class Checkout extends AppCompatActivity {
 
         for (EditText et : editTextList)
             if (et.getText().toString().isEmpty()) {
-                et.setBackgroundResource(R.drawable.editTextBackgroundError);
+                et.setBackgroundResource(R.drawable.edittextbackgrounderror);
                 validation = false;
             }
 
         return validation;
+    }
+
+    private void populate(TextView description, String[] lines) {
+        description.setText(String.join("\n", lines));
     }
 }
