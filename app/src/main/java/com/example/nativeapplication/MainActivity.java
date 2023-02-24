@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Post Your Business Button Onclick navigate to Post Your Business Screen
         Button myButton = findViewById(R.id.button5);
         myButton.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, Checkout.class);
+            Intent i = new Intent(MainActivity.this, PostYourBusiness.class);
             startActivity(i);
         });
         //Set1: Salon Image Button and Button
