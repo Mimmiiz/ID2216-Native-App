@@ -21,7 +21,7 @@ public class Checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         Bundle extras = getIntent().getExtras();
-        String[] leftPage = {"Details:", "", extras.getString("service"), "Time"+extras.getString("bookedTime"), "", "", "Total:"};
+        String[] leftPage = {"Details:", "", extras.getString("service"), extras.getString("bookedDate"), "Time: "+extras.getString("bookedTime"), "", "Total:"};
         String[] rightPage = {"Contact information:", "", extras.getString("name"), extras.getString("phoneNumber"), "", "", extras.getString("price")};
 
         ConstraintLayout c_layout = (ConstraintLayout) findViewById(R.id.mainConstraint);
