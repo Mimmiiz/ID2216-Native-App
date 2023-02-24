@@ -49,7 +49,9 @@ public class ServicePersonList extends AppCompatActivity {
         Person[] persons = {
                 new Person(R.drawable.avatar, "Joe Biden", "250 SEK"),
                 new Person(R.drawable.salon, "Jane Smith", "349 SEK"),
-                new Person(R.drawable.avatar, "Bob Johnson", "300 SEK")
+                new Person(R.drawable.avatar3, "Daniel Lind", "300 SEK"),
+                new Person(R.drawable.avatar4, "Vera Nilsson", "499 SEK"),
+                new Person(R.drawable.salon, "Paul George", "449 SEK"),
         };
         for (Person person : persons) {
             servicePersons.add(new Person(person.getAvatar(), person.getName(), person.getPrice()));
