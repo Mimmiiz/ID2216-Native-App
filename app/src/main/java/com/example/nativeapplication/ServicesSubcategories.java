@@ -30,8 +30,6 @@ public class ServicesSubcategories extends AppCompatActivity {
         for (int i = 0; i < value.length; i++) {
             addButton(value[i], buttonHeight, i+1);
         }
-
-
     }
 
     private void addButton(String text, int buttonHeight, int id) {
@@ -44,7 +42,7 @@ public class ServicesSubcategories extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ServicesSubcategories.this, ServicesSubcategories.class);
+                Intent i = new Intent(ServicesSubcategories.this, ServicePersonList.class);
                 //i.putExtra("type", btn1.getText());
 
                 startActivity(i);
