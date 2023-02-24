@@ -14,4 +14,24 @@
     <string name="default_week">Week 1</string>
     <string name="date_text_default">1</string>
     <string name="default_booking_start_end_dates">1 Jan - 6 Jan</string>
+    <string name="plumber">Plumber</string>
+    <string name="salon">Salon</string>
+    <string name="electrician">Electrician</string>
+    <string name="others">Others</string>
+    <string name="pyb">Post Your Business</string>
+    <string name="plumberimg">plumberimg</string>
+    <string name="salonimg">salonimg</string>
+    <string name="electricianimg">electricianimg</string>
+    <string name="othersimg">othersimg</string>
+    <string name="services">Services</string>
+    <string name="menu">Home</string>
+    <string name="dos">Description of service</string>
+    <string name="username">Name of person providing service</string>
+    <string name="address">Enter Address</string>
+    <string name="phone">Enter Phone Number</string>
+    <string name="email">Enter Email Address</string>
+    <string name="amount">Enter Amount</string>
+    <string name="confirm">Confirm</string>
+    <string name="businessimg">businessimg</string>
+    <string name="Order">Order Confirmation</string>
 </resources>

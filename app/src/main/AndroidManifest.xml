@@ -15,8 +15,18 @@
             android:name=".Booking"
             android:exported="false" />
         <activity
+            android:name=".ServicePersonList"
+            android:exported="false"/>
+        <activity
+            android:name=".OrderConfirmation"
+            android:exported="false" />
+        <activity
+            android:name=".PostYourBusiness"
+            android:exported="false" />
+        <activity
             android:name=".ServicesSubcategories"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
