@@ -34,4 +34,5 @@
     <string name="confirm">Confirm</string>
     <string name="businessimg">businessimg</string>
     <string name="Order">Order Confirmation</string>
+    <string name="book_button_message">Please select a time</string>
 </resources>

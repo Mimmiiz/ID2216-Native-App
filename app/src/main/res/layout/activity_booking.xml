@@ -35,12 +35,10 @@
 
         <ImageView
             android:id="@+id/booking_avatar"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:src="@drawable/baseline_person_24"
-            tools:layout_editor_absoluteX="60dp"
-            tools:layout_editor_absoluteY="82dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
@@ -96,7 +94,8 @@
                 android:layout_margin="12dp"
                 android:layout_gravity="center"
                 android:backgroundTint="#555555"
-                android:text="@string/button_book_label" />
+                android:text="@string/button_book_label"
+                />
 
         </LinearLayout>
 
