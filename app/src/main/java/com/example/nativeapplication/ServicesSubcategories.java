@@ -25,7 +25,7 @@ public class ServicesSubcategories extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         String[] value = (extras == null) ? new String[]{"Filler value"} : extras.getString("category").split(",");
-        int buttonHeight = 500;
+        int buttonHeight = 350;
 
         for (int i = 0; i < value.length; i++) {
             addButton(value[i], buttonHeight, i+1);
