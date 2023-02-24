@@ -21,15 +21,13 @@ public class Checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         Bundle extras = getIntent().getExtras();
-        String[] leftPage = {"Details:", "", extras.getString("service"), "Time"+extras.getString("bookedTime"), "", "", "", "", "Total:"};
-        String[] rightPage = {"Contact information:", "", extras.getString("name"), extras.getString("phoneNumber"), "", "", "", "", extras.getString("price")};
+        String[] leftPage = {"Details:", "", extras.getString("service"), "Time"+extras.getString("bookedTime"), "", "", "Total:"};
+        String[] rightPage = {"Contact information:", "", extras.getString("name"), extras.getString("phoneNumber"), "", "", extras.getString("price")};
 
         ConstraintLayout c_layout = (ConstraintLayout) findViewById(R.id.mainConstraint);
 
-        TextView description = findViewById(R.id.textView1);
-        populate(description, leftPage);
-        TextView description1 = findViewById(R.id.textView9);
-        populate(description1, rightPage);
+        populate(findViewById(R.id.textView1), leftPage);
+        populate(findViewById(R.id.textView9), rightPage);
 
         Button checkoutBtn = findViewById(R.id.confbutton);
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +37,6 @@ public class Checkout extends AppCompatActivity {
                     startActivity(new Intent(Checkout.this, OrderConfirmation.class));
             }
         });
-
     }
 
     private boolean validate(ConstraintLayout layout) {
