@@ -128,6 +128,14 @@ public class ServicePersonList extends AppCompatActivity {
             nameTextView.setText(servicePerson.getName());
             priceTextView.setText(servicePerson.getPrice());
 
+            convertView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, Booking.class);
+                intent.putExtra("personAvatar", servicePerson.getAvatar());
+                intent.putExtra("personName", servicePerson.getName());
+                intent.putExtra("personPrice", servicePerson.getPrice());
+                context.startActivity(intent);
+            });
+
             return convertView;
         }
     }
