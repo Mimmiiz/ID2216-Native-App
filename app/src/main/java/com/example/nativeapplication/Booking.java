@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -46,6 +48,7 @@ public class Booking extends AppCompatActivity {
     private TextView dateViewMonSun;
     private RatingBar ratingView;
     private TextView ratingTextView;
+    private TextView personNameView;
     private int weekNumber;
     private LocalDateTime minDate;
     private LocalDateTime maxDate = LocalDateTime.of(2023, 8, 1, 0, 0, 0);
@@ -69,13 +72,37 @@ public class Booking extends AppCompatActivity {
         setContentView(R.layout.activity_booking);
         initWidgets();
 
-        serviceDetails = new HashMap<>();
-        serviceDetails.put("name", "Joe Biden");
-        serviceDetails.put("service", "Men's haircut");
-        serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-        serviceDetails.put("price", "250.00");
-        serviceDetails.put("phoneNumber", "+46000000000");
-        serviceDetails.put("rating", (float)4.4);
+        String personName = getIntent().getStringExtra("personName");
+        String personAvatar = getIntent().getStringExtra("personAvatar");
+        String personPrice = getIntent().getStringExtra("personPrice");
+
+        if (personName.equals("Joe Biden")) {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Joe Biden");
+            serviceDetails.put("service", "Men's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46000000000");
+            serviceDetails.put("rating", (float) 4.4);
+        }
+        else if (personName.equals("Jane Smith")) {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Jane Smith");
+            serviceDetails.put("service", "Womens's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 3.8);
+        }
+        else {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Bob Johnson");
+            serviceDetails.put("service", "Beard shaving and trimming");
+            serviceDetails.put("description", "Beard grooming for all types of beards and styles. Price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 4.1);
+        }
 
         minDate = LocalDateTime.now();
         weekNumber = weekNumber(minDate);
@@ -87,6 +114,22 @@ public class Booking extends AppCompatActivity {
         showDatesOfWeek();
         showBookableTimes();
         showServiceDetails();
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        /* Redirects to order confirmation, needs to be changed to redirect to the checkout page */
+        Button bookButton = findViewById(R.id.button_book);
+        bookButton.setOnClickListener(v -> {
+            Intent i = new Intent(Booking.this, OrderConfirmation.class);
+            i.putExtra("name", serviceDetails.get("name").toString());
+            i.putExtra("service", serviceDetails.get("service").toString());
+            i.putExtra("price", serviceDetails.get("price").toString());
+            i.putExtra("phoneNumber", serviceDetails.get("phoneNumber").toString());
+            i.putExtra("bookedDate", selectedDateTime.format(dateFormatter));
+            i.putExtra("bookedTime", selectedDateTime.format(timeFormatter));
+            startActivity(i);
+        });
     }
 
     private void initWidgets() {
@@ -98,6 +141,7 @@ public class Booking extends AppCompatActivity {
         servicePhoneNumberView = findViewById(R.id.booking_service_telephone_text);
         ratingView = findViewById(R.id.booking_rating_bar);
         ratingTextView = findViewById(R.id.booking_rating_text);
+        personNameView = findViewById(R.id.booking_person_name);
         bookableTimesMon = findViewById(R.id.bookable_times_mon);
         bookableTimesTue = findViewById(R.id.bookable_times_tue);
         bookableTimesWed = findViewById(R.id.bookable_times_wed);
@@ -140,11 +184,12 @@ public class Booking extends AppCompatActivity {
     }
 
     private void showServiceDetails() {
+        personNameView.setText(serviceDetails.get("name").toString());
         ratingTextView.setText(serviceDetails.get("rating").toString());
         ratingView.setRating((Float)serviceDetails.get("rating"));
         serviceNameView.setText(serviceDetails.get("service").toString());
 
-        String price = "Price: " + serviceDetails.get("price").toString() + " SEK";
+        String price = "Price: " + serviceDetails.get("price").toString();
         servicePriceView.setText(price);
 
         serviceDescriptionView.setText(serviceDetails.get("description").toString());
