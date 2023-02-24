@@ -20,20 +20,14 @@ public class Checkout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        /* Uncomment when merged with Marias code
         Bundle extras = getIntent().getExtras();
         String[] leftPage = {"Details:", "", extras.getString("service"), "Time"+extras.getString("bookedTime"), "", "", "", "", "Total:"};
         String[] rightPage = {"Contact information:", "", extras.getString("name"), extras.getString("phoneNumber"), "", "", "", "", extras.getString("price")};
-         */
-
 
         ConstraintLayout c_layout = (ConstraintLayout) findViewById(R.id.mainConstraint);
 
-        String[] leftPage = {"Details:", "", "Men's haircut", "Time: 12:30", "", "", "", "", "Total:"};
         TextView description = findViewById(R.id.textView1);
         populate(description, leftPage);
-
-        String[] rightPage = {"Contact information:", "", "Joe Biden", "+460000000", "", "", "", "", "250 SEK"};
         TextView description1 = findViewById(R.id.textView9);
         populate(description1, rightPage);
 
