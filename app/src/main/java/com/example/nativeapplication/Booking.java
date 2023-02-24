@@ -142,7 +142,7 @@ public class Booking extends AppCompatActivity {
         Button bookButton = findViewById(R.id.button_book);
         bookButton.setOnClickListener(v -> {
             if (selectedDateTime != null) {
-                Intent i = new Intent(Booking.this, OrderConfirmation.class);
+                Intent i = new Intent(Booking.this, Checkout.class);
                 i.putExtra("name", serviceDetails.get("name").toString());
                 i.putExtra("service", serviceDetails.get("service").toString());
                 i.putExtra("price", serviceDetails.get("price").toString());

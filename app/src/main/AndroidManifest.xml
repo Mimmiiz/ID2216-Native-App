@@ -28,6 +28,9 @@
             android:exported="false" />
 
         <activity
+            android:name=".Checkout"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
