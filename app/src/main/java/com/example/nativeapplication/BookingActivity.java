@@ -64,8 +64,8 @@ public class BookingActivity extends AppCompatActivity {
     private LocalDateTime minDate;
     private LocalDateTime maxDate = LocalDateTime.of(2023, 8, 1, 0, 0, 0);
     private ArrayList<LocalDateTime> datesOfWeek = null;
-    private LocalDateTime selectedDateTime = null;
     private TextView selectedBookableTimeView = null;
+    private TimeSlot selectedTimeSlot = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,6 @@ public class BookingActivity extends AppCompatActivity {
 
         String personName = getIntent().getStringExtra("personName");
         int personAvatar = getIntent().getIntExtra("personAvatar", 0);
-        String personPrice = getIntent().getStringExtra("personPrice");
 
         if (personName.equals("Joe Biden"))
             serviceProfessionalId = 2;
@@ -103,20 +102,18 @@ public class BookingActivity extends AppCompatActivity {
             }
         }, serviceProfessionalId);
 
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
         /* Redirects to order confirmation, needs to be changed to redirect to the checkout page */
         Button bookButton = findViewById(R.id.button_book);
         bookButton.setOnClickListener(v -> {
-            if (selectedDateTime != null) {
+            if (selectedTimeSlot != null) {
                 Intent i = new Intent(BookingActivity.this, Checkout.class);
-                /*i.putExtra("name", serviceProfessionalDetails.getName());
-                i.putExtra("service", serviceProfessionalDetails.getServiceName());
-                i.putExtra("price", serviceProfessionalDetails.getPrice());
-                i.putExtra("phoneNumber", serviceProfessionalDetails.getPhoneNumber());*/
-                i.putExtra("bookedDate", selectedDateTime.format(dateFormatter));
-                i.putExtra("bookedTime", selectedDateTime.format(timeFormatter));
+                i.putExtra("name", selectedTimeSlot.getServiceProfessional().getName());
+                i.putExtra("service", selectedTimeSlot.getServiceProfessional().getServiceName());
+                i.putExtra("price", selectedTimeSlot.getServiceProfessional().getPrice() + " SEK");
+                i.putExtra("phoneNumber", selectedTimeSlot.getServiceProfessional().getPhoneNumber());
+                i.putExtra("timeSlotId", selectedTimeSlot.getId());
+                i.putExtra("bookedDate", selectedTimeSlot.getDateTime().substring(0, 10));
+                i.putExtra("bookedTime", selectedTimeSlot.getDateTime().substring(11, 16));
                 startActivity(i);
             }
             else {
@@ -237,7 +234,7 @@ public class BookingActivity extends AppCompatActivity {
                         View bookableTimeCell = inflater.inflate(R.layout.bookable_times_cell, parent, false);
                         TextView textView = (TextView) bookableTimeCell.findViewById(R.id.bookable_time_cell);
                         textView.setText(timeSlot.getDateTime().substring(11, 16));
-                        textView.setTag(dateTime);
+                        textView.setTag(timeSlot);
                         parent.addView(bookableTimeCell);
                     }
                 }
@@ -314,77 +311,8 @@ public class BookingActivity extends AppCompatActivity {
         }
 
         TextView textView = (TextView) view;
-        selectedDateTime = (LocalDateTime)textView.getTag();
+        selectedTimeSlot = (TimeSlot) textView.getTag();
         selectedBookableTimeView = textView;
         textView.setBackground(getResources().getDrawable(R.drawable.background_bookable_times));
     }
-
-
-
 }
-
-    /*private String[][] bookableTimes = {
-            {"10:00", "10:30", "14:00", "15:00"},
-            {"10:00", "10:30", "11:00", "13:00", "13:30"},
-            {"09:00", "10:30", "13:30", "14:00", "16:00", "20:00"},
-            {"10:00", "10:30", "14:00", "14:30", "15:00", "19:30"},
-            {"11:00", "11:30", "14:00", "15:00"},
-            {"08:00", "09:30", "10:00", "12:30", "17:00"},
-            {"10:00", "10:30", "11:00"}};
-
-     */
-
-        /*
-        if (personName.equals("Joe Biden")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Joe Biden");
-            serviceDetails.put("service", "Men's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46000000000");
-            serviceDetails.put("rating", (float) 4.4);
-            serviceDetails.put("avatar", personAvatar);
-        }
-        else if (personName.equals("Jane Smith")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Jane Smith");
-            serviceDetails.put("service", "Women's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 3.8);
-            serviceDetails.put("avatar", personAvatar);
-        }
-
-        else if (personName.equals("Daniel Lind")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Daniel Lind");
-            serviceDetails.put("service", "Beard shaving and trimming");
-            serviceDetails.put("description", "Beard grooming for all types of beards and styles. Price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 4.1);
-            serviceDetails.put("avatar", personAvatar);
-        }
-
-        else if (personName.equals("Vera Nilsson")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Vera Nilsson");
-            serviceDetails.put("service", "Women's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 4.8);
-            serviceDetails.put("avatar", personAvatar);
-        }
-
-        else {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Paul George");
-            serviceDetails.put("service", "Men's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 4.3);
-            serviceDetails.put("avatar", personAvatar);
-        }*/
