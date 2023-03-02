@@ -13,6 +13,35 @@ public class ServiceProfessional {
     private String serviceDescription;
     private Double price;
 
+    public ServiceProfessional(ServiceProfessional serviceProfessional) {
+        this.name = serviceProfessional.getName();
+        this.email = serviceProfessional.getEmail();
+        this.phoneNumber = serviceProfessional.getPhoneNumber();
+        this.address = serviceProfessional.getAddress();
+        this.postalCode = serviceProfessional.getPostalCode();
+        this.city = serviceProfessional.getCity();
+        this.rating = serviceProfessional.getRating();
+        this.serviceName = serviceProfessional.getServiceName();
+        this.serviceDescription = serviceProfessional.getServiceDescription();
+        this.price = serviceProfessional.getPrice();
+        this.serviceSubcategory = serviceProfessional.getServiceSubcategory();
+    }
+
+    public ServiceProfessional(Integer id, String name, String email, String phoneNumber, String address, String postalCode, String city, Float rating, String serviceName, String serviceDescription, Double price, String serviceSubcategory) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.rating = rating;
+        this.serviceName = serviceName;
+        this.serviceDescription = serviceDescription;
+        this.price = price;
+        this.serviceSubcategory = serviceSubcategory;
+    }
+
     public Integer getId() {
         return id;
     }

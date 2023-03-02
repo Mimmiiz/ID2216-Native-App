@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +22,22 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nativeapplication.model.ServiceProfessional;
+import com.example.nativeapplication.model.TimeSlot;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BookingActivity extends AppCompatActivity {
+    public static ApiManager apiManager;
+    private Integer serviceProfessionalId;
     private TextView currentWeek;
     private TextView dateAndYear;
-    private RecyclerView calendarRecyclerView;
     private TextView serviceNameView;
     private TextView serviceDescriptionView;
     private TextView servicePriceView;
@@ -56,16 +64,6 @@ public class BookingActivity extends AppCompatActivity {
     private LocalDateTime minDate;
     private LocalDateTime maxDate = LocalDateTime.of(2023, 8, 1, 0, 0, 0);
     private ArrayList<LocalDateTime> datesOfWeek = null;
-    private String[][] bookableTimes = {
-            {"10:00", "10:30", "14:00", "15:00"},
-            {"10:00", "10:30", "11:00", "13:00", "13:30"},
-            {"09:00", "10:30", "13:30", "14:00", "16:00", "20:00"},
-            {"10:00", "10:30", "14:00", "14:30", "15:00", "19:30"},
-            {"11:00", "11:30", "14:00", "15:00"},
-            {"08:00", "09:30", "10:00", "12:30", "17:00"},
-            {"10:00", "10:30", "11:00"}};
-
-    private HashMap<String, Object> serviceDetails;
     private LocalDateTime selectedDateTime = null;
     private TextView selectedBookableTimeView = null;
 
@@ -75,63 +73,35 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_booking);
         initWidgets();
 
+        apiManager = ApiManager.getInstance();
+
         String personName = getIntent().getStringExtra("personName");
         int personAvatar = getIntent().getIntExtra("personAvatar", 0);
         String personPrice = getIntent().getStringExtra("personPrice");
 
-        if (personName.equals("Joe Biden")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Joe Biden");
-            serviceDetails.put("service", "Men's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46000000000");
-            serviceDetails.put("rating", (float) 4.4);
-            serviceDetails.put("avatar", personAvatar);
-        }
-        else if (personName.equals("Jane Smith")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Jane Smith");
-            serviceDetails.put("service", "Women's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 3.8);
-            serviceDetails.put("avatar", personAvatar);
-        }
+        if (personName.equals("Joe Biden"))
+            serviceProfessionalId = 2;
+        else if (personName.equals("Jane Smith"))
+            serviceProfessionalId = 12;
+        else if (personName.equals("Daniel Lind"))
+            serviceProfessionalId = 22;
+        else if (personName.equals("Vera Nilsson"))
+            serviceProfessionalId = 32;
+        else
+            serviceProfessionalId = 42;
 
-        else if (personName.equals("Daniel Lind")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Daniel Lind");
-            serviceDetails.put("service", "Beard shaving and trimming");
-            serviceDetails.put("description", "Beard grooming for all types of beards and styles. Price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 4.1);
-            serviceDetails.put("avatar", personAvatar);
-        }
+        apiManager.getServiceProfessionalFromId(new ApiManager.ApiCallback<ServiceProfessional>() {
+            @Override
+            public void onSuccess(ServiceProfessional response) {
+                Log.d("SOMETHING", response.getAddress());
+                showServiceDetails(response);
+            }
 
-        else if (personName.equals("Vera Nilsson")) {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Vera Nilsson");
-            serviceDetails.put("service", "Women's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 4.8);
-            serviceDetails.put("avatar", personAvatar);
-        }
-
-        else {
-            serviceDetails = new HashMap<>();
-            serviceDetails.put("name", "Paul George");
-            serviceDetails.put("service", "Men's haircut");
-            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
-            serviceDetails.put("price", personPrice);
-            serviceDetails.put("phoneNumber", "+46111111111");
-            serviceDetails.put("rating", (float) 4.3);
-            serviceDetails.put("avatar", personAvatar);
-        }
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(BookingActivity.this, "Could not load the page", Toast.LENGTH_SHORT).show();
+            }
+        }, serviceProfessionalId);
 
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -141,10 +111,10 @@ public class BookingActivity extends AppCompatActivity {
         bookButton.setOnClickListener(v -> {
             if (selectedDateTime != null) {
                 Intent i = new Intent(BookingActivity.this, Checkout.class);
-                i.putExtra("name", serviceDetails.get("name").toString());
-                i.putExtra("service", serviceDetails.get("service").toString());
-                i.putExtra("price", serviceDetails.get("price").toString());
-                i.putExtra("phoneNumber", serviceDetails.get("phoneNumber").toString());
+                /*i.putExtra("name", serviceProfessionalDetails.getName());
+                i.putExtra("service", serviceProfessionalDetails.getServiceName());
+                i.putExtra("price", serviceProfessionalDetails.getPrice());
+                i.putExtra("phoneNumber", serviceProfessionalDetails.getPhoneNumber());*/
                 i.putExtra("bookedDate", selectedDateTime.format(dateFormatter));
                 i.putExtra("bookedTime", selectedDateTime.format(timeFormatter));
                 startActivity(i);
@@ -164,7 +134,6 @@ public class BookingActivity extends AppCompatActivity {
         showDateAndYear();
         showDatesOfWeek();
         showBookableTimes();
-        showServiceDetails();
     }
 
     private void initWidgets() {
@@ -219,21 +188,21 @@ public class BookingActivity extends AppCompatActivity {
         dateAndYear.setText(dateYear);
     }
 
-    private void showServiceDetails() {
-        if (serviceDetails.get("avatar") != null) {
+    private void showServiceDetails(ServiceProfessional serviceProfessionalDetails) {
+        /*if (serviceDetails.get("avatar") != null) {
             personAvatarView.setImageResource((Integer) serviceDetails.get("avatar"));
-        }
-        personNameView.setText(serviceDetails.get("name").toString());
-        ratingTextView.setText(serviceDetails.get("rating").toString());
-        ratingView.setRating((Float)serviceDetails.get("rating"));
-        serviceNameView.setText(serviceDetails.get("service").toString());
+        }*/
+        personNameView.setText(serviceProfessionalDetails.getName());
+        ratingTextView.setText(serviceProfessionalDetails.getRating().toString());
+        ratingView.setRating((Float)serviceProfessionalDetails.getRating());
+        serviceNameView.setText(serviceProfessionalDetails.getServiceName());
 
-        String price = "Price: " + serviceDetails.get("price").toString();
+        String price = "Price: " + serviceProfessionalDetails.getPrice() + " SEK";
         servicePriceView.setText(price);
 
-        serviceDescriptionView.setText(serviceDetails.get("description").toString());
+        serviceDescriptionView.setText(serviceProfessionalDetails.getServiceDescription());
 
-        String phoneNumber = "Phone number: " + serviceDetails.get("phoneNumber").toString();
+        String phoneNumber = "Phone number: " + serviceProfessionalDetails.getPhoneNumber();
         servicePhoneNumberView.setText(phoneNumber);
 
     }
@@ -247,28 +216,39 @@ public class BookingActivity extends AppCompatActivity {
         bookableTimesSat.removeAllViews();
         bookableTimesSun.removeAllViews();
 
-        addBookableTimes(bookableTimesMon, bookableTimes[0], datesOfWeek.get(0));
-        addBookableTimes(bookableTimesTue, bookableTimes[1], datesOfWeek.get(1));
-        addBookableTimes(bookableTimesWed, bookableTimes[2], datesOfWeek.get(2));
-        addBookableTimes(bookableTimesThu, bookableTimes[3], datesOfWeek.get(3));
-        addBookableTimes(bookableTimesFri, bookableTimes[4], datesOfWeek.get(4));
-        addBookableTimes(bookableTimesSat, bookableTimes[5], datesOfWeek.get(5));
-        addBookableTimes(bookableTimesSun, bookableTimes[6], datesOfWeek.get(6));
+        addBookableTimes(bookableTimesMon, datesOfWeek.get(0));
+        addBookableTimes(bookableTimesTue, datesOfWeek.get(1));
+        addBookableTimes(bookableTimesWed, datesOfWeek.get(2));
+        addBookableTimes(bookableTimesThu, datesOfWeek.get(3));
+        addBookableTimes(bookableTimesFri, datesOfWeek.get(4));
+        addBookableTimes(bookableTimesSat, datesOfWeek.get(5));
+        addBookableTimes(bookableTimesSun, datesOfWeek.get(6));
     }
 
-    private void addBookableTimes(ViewGroup parent, String[] bookableTimes, LocalDateTime date) {
+    private void addBookableTimes(ViewGroup parent, LocalDateTime localDate) {
         LayoutInflater inflater = getLayoutInflater();
+        BookingActivity.apiManager.getTimeSlotsInRange(new ApiManager.ApiCallback<List<TimeSlot>>() {
+            @Override
+            public void onSuccess(List<TimeSlot> response) {
 
-        for (int i = 0; i < bookableTimes.length; i++) {
-            LocalDateTime dateTime = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), Integer.parseInt(bookableTimes[i].substring(0, 2)), Integer.parseInt(bookableTimes[i].substring(3, 5)));
-            if (minDate.isBefore(dateTime.minusHours(1))) {
-                View bookableTimeCell = inflater.inflate(R.layout.bookable_times_cell, parent, false);
-                TextView textView = (TextView) bookableTimeCell.findViewById(R.id.bookable_time_cell);
-                textView.setText(bookableTimes[i]);
-                textView.setTag(dateTime);
-                parent.addView(bookableTimeCell);
+                for (TimeSlot timeSlot: response) {
+                    LocalDateTime dateTime = LocalDateTime.parse(timeSlot.getDateTime(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    if (minDate.isBefore(dateTime.minusHours(1))) {
+                        View bookableTimeCell = inflater.inflate(R.layout.bookable_times_cell, parent, false);
+                        TextView textView = (TextView) bookableTimeCell.findViewById(R.id.bookable_time_cell);
+                        textView.setText(timeSlot.getDateTime().substring(11, 16));
+                        textView.setTag(dateTime);
+                        parent.addView(bookableTimeCell);
+                    }
+                }
             }
-        }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(BookingActivity.this, "Can't display bookable times", Toast.LENGTH_SHORT).show();
+                Log.d("ERROR", "An error happened");
+            }
+        }, localDate.toLocalDate().toString(), serviceProfessionalId);
     }
 
     private void showDatesOfWeek() {
@@ -342,3 +322,69 @@ public class BookingActivity extends AppCompatActivity {
 
 
 }
+
+    /*private String[][] bookableTimes = {
+            {"10:00", "10:30", "14:00", "15:00"},
+            {"10:00", "10:30", "11:00", "13:00", "13:30"},
+            {"09:00", "10:30", "13:30", "14:00", "16:00", "20:00"},
+            {"10:00", "10:30", "14:00", "14:30", "15:00", "19:30"},
+            {"11:00", "11:30", "14:00", "15:00"},
+            {"08:00", "09:30", "10:00", "12:30", "17:00"},
+            {"10:00", "10:30", "11:00"}};
+
+     */
+
+        /*
+        if (personName.equals("Joe Biden")) {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Joe Biden");
+            serviceDetails.put("service", "Men's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46000000000");
+            serviceDetails.put("rating", (float) 4.4);
+            serviceDetails.put("avatar", personAvatar);
+        }
+        else if (personName.equals("Jane Smith")) {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Jane Smith");
+            serviceDetails.put("service", "Women's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 3.8);
+            serviceDetails.put("avatar", personAvatar);
+        }
+
+        else if (personName.equals("Daniel Lind")) {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Daniel Lind");
+            serviceDetails.put("service", "Beard shaving and trimming");
+            serviceDetails.put("description", "Beard grooming for all types of beards and styles. Price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 4.1);
+            serviceDetails.put("avatar", personAvatar);
+        }
+
+        else if (personName.equals("Vera Nilsson")) {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Vera Nilsson");
+            serviceDetails.put("service", "Women's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 4.8);
+            serviceDetails.put("avatar", personAvatar);
+        }
+
+        else {
+            serviceDetails = new HashMap<>();
+            serviceDetails.put("name", "Paul George");
+            serviceDetails.put("service", "Men's haircut");
+            serviceDetails.put("description", "Includes hair wash and simple styling. Please note that the price may increase if more products or time is needed.");
+            serviceDetails.put("price", personPrice);
+            serviceDetails.put("phoneNumber", "+46111111111");
+            serviceDetails.put("rating", (float) 4.3);
+            serviceDetails.put("avatar", personAvatar);
+        }*/
