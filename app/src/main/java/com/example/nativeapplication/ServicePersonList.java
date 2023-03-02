@@ -3,15 +3,12 @@ package com.example.nativeapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -132,7 +129,7 @@ public class ServicePersonList extends AppCompatActivity {
             priceTextView.setText(servicePerson.getPrice());
 
             convertView.setOnClickListener(v -> {
-                Intent intent = new Intent(context, Booking.class);
+                Intent intent = new Intent(context, BookingActivity.class);
                 intent.putExtra("personAvatar", servicePerson.getAvatar());
                 intent.putExtra("personName", servicePerson.getName());
                 intent.putExtra("personPrice", servicePerson.getPrice());

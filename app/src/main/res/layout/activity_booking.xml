@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1EDE7"
-    tools:context=".Booking">
+    tools:context=".BookingActivity">
 
     <TextView
         android:id="@+id/booking_title"
