@@ -10,11 +10,16 @@
     </string-array>
     <string-array name="service_array">
     <item>Select a service</item>
-    <item>Salon</item>
-    <item>Electrician</item>
-    <item>Plumber</item>
-    <item>Baby Sitter</item>
-    <item>Carpeneter</item>
+    <item>Men\'s &amp; Women\'s Salon</item>
+    <item>SPA &amp; Massage</item>
+    <item>Facial &amp; Clean-ups</item>
+    <item>Repair Appliances</item>
+    <item>Wiring, Light &amp; Switch</item>
+    <item>Drainage Pipes</item>
+    <item>Fittings, Bath &amp; Toilets</item>
+    <item>Baby Sitting</item>
+    <item>Carpenter</item>
+
     </string-array>
 
 </resources>
