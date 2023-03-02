@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Booking extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity {
     private TextView currentWeek;
     private TextView dateAndYear;
     private RecyclerView calendarRecyclerView;
@@ -142,7 +140,7 @@ public class Booking extends AppCompatActivity {
         Button bookButton = findViewById(R.id.button_book);
         bookButton.setOnClickListener(v -> {
             if (selectedDateTime != null) {
-                Intent i = new Intent(Booking.this, Checkout.class);
+                Intent i = new Intent(BookingActivity.this, Checkout.class);
                 i.putExtra("name", serviceDetails.get("name").toString());
                 i.putExtra("service", serviceDetails.get("service").toString());
                 i.putExtra("price", serviceDetails.get("price").toString());
@@ -161,7 +159,6 @@ public class Booking extends AppCompatActivity {
         minDate = LocalDateTime.now();
         weekNumber = weekNumber(minDate);
         datesOfWeek = datesOfWeek(minDate);
-        Log.d("Dates of week", datesOfWeek.toString());
 
         showWeek();
         showDateAndYear();
@@ -265,8 +262,6 @@ public class Booking extends AppCompatActivity {
         for (int i = 0; i < bookableTimes.length; i++) {
             LocalDateTime dateTime = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), Integer.parseInt(bookableTimes[i].substring(0, 2)), Integer.parseInt(bookableTimes[i].substring(3, 5)));
             if (minDate.isBefore(dateTime.minusHours(1))) {
-                Log.d("minDate", minDate.toString());
-                Log.d("dateTime", dateTime.toString());
                 View bookableTimeCell = inflater.inflate(R.layout.bookable_times_cell, parent, false);
                 TextView textView = (TextView) bookableTimeCell.findViewById(R.id.bookable_time_cell);
                 textView.setText(bookableTimes[i]);
@@ -342,7 +337,6 @@ public class Booking extends AppCompatActivity {
         selectedDateTime = (LocalDateTime)textView.getTag();
         selectedBookableTimeView = textView;
         textView.setBackground(getResources().getDrawable(R.drawable.background_bookable_times));
-        Log.d("Selected date", selectedDateTime.toString());
     }
 
 
