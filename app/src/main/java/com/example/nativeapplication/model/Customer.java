@@ -27,8 +27,7 @@ public class Customer {
         this.timeslot = customer.getTimeslot();
     }
 
-    public Customer(Integer id, String firstName, String lastName, String postalCode, String address, String city, String email, String phoneNumber, Timestamp timestamp, TimeSlot timeslot) {
-        this.id = id;
+    public Customer(String firstName, String lastName, String postalCode, String address, String city, String email, String phoneNumber, Timestamp timestamp, TimeSlot timeslot) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.postalCode = postalCode;

@@ -82,9 +82,9 @@ public class Checkout extends AppCompatActivity {
         String phone = ((EditText) findViewById(R.id.textView8)).getText().toString();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         TimeSlot timeslot = new TimeSlot();
-        timeslot.setId(timeslotID);
+        //timeslot.setId(timeslotID);
 
-        Customer customer = new Customer(1234, firstName, lastName, postalCode, address, city, email, phone, null, null);
+        Customer customer = new Customer(firstName, lastName, postalCode, address, city, email, phone, timestamp, timeslot);
 
         apiManager.createCustomer(customer);
 

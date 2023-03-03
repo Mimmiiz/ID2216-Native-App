@@ -1,10 +1,15 @@
 package com.example.nativeapplication;
 
+import static java.security.AccessController.getContext;
+
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.nativeapplication.model.Customer;
 import com.example.nativeapplication.model.ServiceProfessional;
 import com.example.nativeapplication.model.TimeSlot;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -88,10 +93,17 @@ public class ApiManager {
             public void onResponse(Call<Customer> call, Response<Customer> response) {
                 if (response.isSuccessful()) {
                     Customer customer = response.body();
+
                     System.out.println("API posted successfully" + response.toString());
                 } else {
                     System.out.println("API not successful (1)");
-                    System.out.println(response.message());
+                    System.out.println(response.code());
+                    try {
+                        System.out.println(response.errorBody().string());
+
+                    } catch (Exception e) {}
+
+
                 }
 
             }

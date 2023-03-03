@@ -23,7 +23,8 @@ public interface ApiService {
     @GET("serviceProfessionals")
     Call<ServiceProfessional> getServiceProfessionalFromId(@Query("id") Integer id);
 
-    @POST("customers")
+    @Headers("Accept-Language: en-SE")
+    @POST("customers-post")
     Call<Customer> createCustomer(@Body Customer customer);
 
 }
