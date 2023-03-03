@@ -33,7 +33,6 @@ public class PostYourBusiness extends AppCompatActivity {
 
         //Post you business spinner shows list of services to select
         Spinner spinner = findViewById(R.id.serviceSpinner);
-//        String text7 = spinner.getSelectedItem().toString();
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.service_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -69,6 +68,14 @@ public class PostYourBusiness extends AppCompatActivity {
             String text5 = eT5.getText().toString();
             EditText eT6 = findViewById(R.id.textView16);
             String text6 = eT6.getText().toString();
+
+            if (text7.equals("Select a service")) {
+                Toast.makeText(getApplicationContext(), "Please Select a service", Toast.LENGTH_SHORT).show();
+                spinner.setBackgroundResource(R.drawable.edittext_mandatory);
+            }else{
+                spinner.setBackgroundResource(R.drawable.edittext_filled);
+            }
+
             if (eT1.getText().toString().isEmpty() || eT2.getText().toString().isEmpty() ||
                 eT3.getText().toString().isEmpty() || eT4.getText().toString().isEmpty() ||
                 eT5.getText().toString().isEmpty() || eT6.getText().toString().isEmpty()) {
@@ -113,13 +120,11 @@ public class PostYourBusiness extends AppCompatActivity {
                 serviceprofessional.setEmail(text5);
                 serviceprofessional.setPrice(Double.valueOf(text6));
                 serviceprofessional.setServiceSubcategory(text7);
-//                serviceprofessional.setRating(0f);
 
                 serviceprofessionalApi.save(serviceprofessional)
                         .enqueue(new Callback<ServiceProfessional>() {
                             @Override
                             public void onResponse(Call<ServiceProfessional> call, Response<ServiceProfessional> response) {
-//                                Toast.makeText(PostYourBusiness.this, "Service Professional Details Save Successfuly", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(PostYourBusiness.this, OrderConfirmation.class);
                                 startActivity(i);
                             }
