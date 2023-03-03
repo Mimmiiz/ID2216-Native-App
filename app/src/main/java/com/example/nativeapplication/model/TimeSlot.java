@@ -21,4 +21,6 @@ public class TimeSlot {
     public ServiceProfessional getServiceProfessional() {
         return serviceProfessional;
     }
+
+    public void setId(Integer id) { this.id = id; }
 }

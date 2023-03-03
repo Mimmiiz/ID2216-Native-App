@@ -2,6 +2,7 @@ package com.example.nativeapplication;
 
 import android.util.Log;
 
+import com.example.nativeapplication.model.Customer;
 import com.example.nativeapplication.model.ServiceProfessional;
 import com.example.nativeapplication.model.TimeSlot;
 
@@ -76,5 +77,31 @@ public class ApiManager {
                 callback.onFailure(t);
             }
         });
+    }
+
+    public void createCustomer(Customer customer) {
+        Call<Customer> call = apiService.createCustomer(customer);
+
+        call.enqueue(new Callback<Customer>() {
+
+            @Override
+            public void onResponse(Call<Customer> call, Response<Customer> response) {
+                if (response.isSuccessful()) {
+                    Customer customer = response.body();
+                    System.out.println("API posted successfully" + response.toString());
+                } else {
+                    System.out.println("API not successful (1)");
+                    System.out.println(response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Customer> call, Throwable t) {
+                System.out.println("API not successful (2)");
+
+            }
+        });
+
     }
 }
