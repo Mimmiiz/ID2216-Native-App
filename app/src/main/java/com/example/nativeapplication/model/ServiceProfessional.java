@@ -8,14 +8,47 @@ public class ServiceProfessional {
     private String address;
     private String postalCode;
     private String city;
+    private Float rating;
+    private String serviceName;
+    private String serviceDescription;
+    private Double price;
+    private String serviceSubcategory;
 
+    public ServiceProfessional(ServiceProfessional serviceProfessional) {
+        this.name = serviceProfessional.getName();
+        this.email = serviceProfessional.getEmail();
+        this.phoneNumber = serviceProfessional.getPhoneNumber();
+        this.address = serviceProfessional.getAddress();
+        this.postalCode = serviceProfessional.getPostalCode();
+        this.city = serviceProfessional.getCity();
+        this.rating = serviceProfessional.getRating();
+        this.serviceName = serviceProfessional.getServiceName();
+        this.serviceDescription = serviceProfessional.getServiceDescription();
+        this.price = serviceProfessional.getPrice();
+        this.serviceSubcategory = serviceProfessional.getServiceSubcategory();
+    }
+
+    public ServiceProfessional(Integer id, String name, String email, String phoneNumber, String address, String postalCode, String city, Float rating, String serviceName, String serviceDescription, Double price, String serviceSubcategory) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.rating = rating;
+        this.serviceName = serviceName;
+        this.serviceDescription = serviceDescription;
+        this.price = price;
+        this.serviceSubcategory = serviceSubcategory;
+    }
+    
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -24,7 +57,7 @@ public class ServiceProfessional {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public String getEmail() {
         return email;
     }
@@ -44,7 +77,7 @@ public class ServiceProfessional {
     public String getAddress() {
         return address;
     }
-
+    
     public void setAddress(String address) {
         this.address = address;
     }
@@ -80,7 +113,7 @@ public class ServiceProfessional {
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
-
+    
     public String getServiceDescription() {
         return serviceDescription;
     }
@@ -105,9 +138,4 @@ public class ServiceProfessional {
         this.serviceSubcategory = serviceSubcategory;
     }
 
-    private Float rating;
-    private String serviceName;
-    private String serviceDescription;
-    private Double price;
-    private String serviceSubcategory;
 }

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.NativeApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Booking"
+            android:name=".BookingActivity"
             android:exported="false" />
         <activity
             android:name=".ServicePersonList"
