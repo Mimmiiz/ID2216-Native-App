@@ -11,10 +11,10 @@ import retrofit2.http.POST;
 
 public interface ServiceprofessionalApi {
 
-        @GET("/allserviceprofessionals")
+    @GET("allserviceprofessionals")
     Call<List<ServiceProfessional>> getServiceProfessionals();
 
-    @POST("/saveserviceProfessional")
-    Call<ServiceProfessional> save(@Body ServiceProfessional serviceprofessional);
+    @POST("saveserviceProfessional")
+    Call<Object> save(@Body ServiceProfessional serviceprofessional);
 
 }

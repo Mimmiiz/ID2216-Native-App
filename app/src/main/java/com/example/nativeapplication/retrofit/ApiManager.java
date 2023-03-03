@@ -1,4 +1,4 @@
-package com.example.nativeapplication;
+package com.example.nativeapplication.retrofit;
 
 import android.util.Log;
 
@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiManager {
     private static ApiService apiService;
     private static ApiManager apiManager;
+    private static ServiceprofessionalApi serviceProfessionalApi;
 
     public interface ApiCallback<T> {
         void onSuccess(T response);
@@ -25,10 +26,11 @@ public class ApiManager {
 
     private ApiManager() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://snap-app.herokuapp.com/")
+                .baseUrl("http://snap-app.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
+        serviceProfessionalApi = retrofit.create(ServiceprofessionalApi.class);
     }
 
     public static ApiManager getInstance() {
@@ -73,6 +75,27 @@ public class ApiManager {
 
             @Override
             public void onFailure(Call<ServiceProfessional> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+
+    public void saveServiceProfessional(final ApiCallback<Object> callback, ServiceProfessional serviceProfessional) {
+        Call<Object> call = serviceProfessionalApi.save(serviceProfessional);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d("RESPONSE", response.code() + " ");
+                if (response.code()==200) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFailure(new Exception(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

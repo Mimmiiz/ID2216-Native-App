@@ -13,15 +13,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.nativeapplication.model.ServiceProfessional;
-import com.example.nativeapplication.retrofit.RetrofitService;
-import com.example.nativeapplication.retrofit.ServiceprofessionalApi;
+import com.example.nativeapplication.retrofit.ApiManager;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PostYourBusiness extends AppCompatActivity {
     String text7;
@@ -49,9 +44,6 @@ public class PostYourBusiness extends AppCompatActivity {
             }
 
         });
-
-        RetrofitService retrofitService = new RetrofitService();
-        ServiceprofessionalApi serviceprofessionalApi = retrofitService.getRetrofit().create(ServiceprofessionalApi.class);
 
         //Validation check to handel filling of mandatory fields and highlighting them
         Button myButton = findViewById(R.id.button2);
@@ -121,7 +113,23 @@ public class PostYourBusiness extends AppCompatActivity {
                 serviceprofessional.setEmail(text5);
                 serviceprofessional.setPrice(Double.valueOf(text6));
                 serviceprofessional.setServiceSubcategory(text7);
+                serviceprofessional.setRating((float) 0);
 
+                MainActivity.apiManager.saveServiceProfessional(new ApiManager.ApiCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        Intent i = new Intent(PostYourBusiness.this, OrderConfirmation.class);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Toast.makeText(PostYourBusiness.this, "Service Professional Details Save Failed", Toast.LENGTH_SHORT).show();
+                        Logger.getLogger(PostYourBusiness.class.getName()).log(Level.SEVERE, "Error Occurred", t);
+                    }
+                }, serviceprofessional);
+
+                /*
                 serviceprofessionalApi.save(serviceprofessional)
                         .enqueue(new Callback<ServiceProfessional>() {
                             @Override
@@ -135,7 +143,7 @@ public class PostYourBusiness extends AppCompatActivity {
                                 Toast.makeText(PostYourBusiness.this, "Service Professional Details Save Failed", Toast.LENGTH_SHORT).show();
                                 Logger.getLogger(PostYourBusiness.class.getName()).log(Level.SEVERE, "Error Occurred", t);
                             }
-                        });
+                        });*/
             }
         });
 

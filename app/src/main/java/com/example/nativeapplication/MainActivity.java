@@ -9,12 +9,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.example.nativeapplication.retrofit.ApiManager;
+
 public class MainActivity extends AppCompatActivity {
+    public static ApiManager apiManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        apiManager = ApiManager.getInstance();
+
         //Spinner to handel search bar
         Spinner spinner = findViewById(R.id.locationSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,

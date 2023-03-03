@@ -4,7 +4,6 @@ import static com.example.nativeapplication.CalendarUtils.weekNumber;
 import static com.example.nativeapplication.CalendarUtils.datesOfWeek;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,17 +23,14 @@ import android.widget.Toast;
 
 import com.example.nativeapplication.model.ServiceProfessional;
 import com.example.nativeapplication.model.TimeSlot;
+import com.example.nativeapplication.retrofit.ApiManager;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class BookingActivity extends AppCompatActivity {
-    public static ApiManager apiManager;
     private Integer serviceProfessionalId;
     private TextView currentWeek;
     private TextView dateAndYear;
@@ -73,8 +69,6 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_booking);
         initWidgets();
 
-        apiManager = ApiManager.getInstance();
-
         String personName = getIntent().getStringExtra("personName");
         int personAvatar = getIntent().getIntExtra("personAvatar", 0);
 
@@ -89,7 +83,7 @@ public class BookingActivity extends AppCompatActivity {
         else
             serviceProfessionalId = 42;
 
-        apiManager.getServiceProfessionalFromId(new ApiManager.ApiCallback<ServiceProfessional>() {
+        MainActivity.apiManager.getServiceProfessionalFromId(new ApiManager.ApiCallback<ServiceProfessional>() {
             @Override
             public void onSuccess(ServiceProfessional response) {
                 Log.d("SOMETHING", response.getAddress());
@@ -224,7 +218,7 @@ public class BookingActivity extends AppCompatActivity {
 
     private void addBookableTimes(ViewGroup parent, LocalDateTime localDate) {
         LayoutInflater inflater = getLayoutInflater();
-        BookingActivity.apiManager.getTimeSlotsInRange(new ApiManager.ApiCallback<List<TimeSlot>>() {
+        MainActivity.apiManager.getTimeSlotsInRange(new ApiManager.ApiCallback<List<TimeSlot>>() {
             @Override
             public void onSuccess(List<TimeSlot> response) {
 
