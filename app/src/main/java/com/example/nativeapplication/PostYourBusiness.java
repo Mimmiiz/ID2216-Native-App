@@ -69,17 +69,18 @@ public class PostYourBusiness extends AppCompatActivity {
             EditText eT6 = findViewById(R.id.textView16);
             String text6 = eT6.getText().toString();
 
-            if (text7.equals("Select a service")) {
-                Toast.makeText(getApplicationContext(), "Please Select a service", Toast.LENGTH_SHORT).show();
-                spinner.setBackgroundResource(R.drawable.edittext_mandatory);
-            }else{
-                spinner.setBackgroundResource(R.drawable.edittext_filled);
-            }
 
             if (eT1.getText().toString().isEmpty() || eT2.getText().toString().isEmpty() ||
                 eT3.getText().toString().isEmpty() || eT4.getText().toString().isEmpty() ||
-                eT5.getText().toString().isEmpty() || eT6.getText().toString().isEmpty()) {
+                eT5.getText().toString().isEmpty() || eT6.getText().toString().isEmpty() ||
+                text7.equals("Select a service")) {
                 Toast.makeText(PostYourBusiness.this, "Please fill in all mandatory fields.", Toast.LENGTH_SHORT).show();
+                if (text7.equals("Select a service")) {
+                    Toast.makeText(PostYourBusiness.this, "Please Select a service.", Toast.LENGTH_SHORT).show();
+                    spinner.setBackgroundResource(R.drawable.edittext_mandatory);
+                }else{
+                    spinner.setBackgroundResource(R.drawable.edittext_filled);
+                }
                 if (eT1.getText().toString().isEmpty()) {
                     eT1.setBackgroundResource(R.drawable.edittext_mandatory);
                 } else {
