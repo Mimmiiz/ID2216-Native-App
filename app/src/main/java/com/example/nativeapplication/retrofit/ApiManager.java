@@ -32,7 +32,7 @@ public class ApiManager {
 
     private ApiManager() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.117:8080/")
+                .baseUrl("https://snap-app.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
