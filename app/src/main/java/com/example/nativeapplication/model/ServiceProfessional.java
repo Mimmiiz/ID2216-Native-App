@@ -110,4 +110,5 @@ public class ServiceProfessional {
         this.serviceSubcategory = serviceSubcategory;
     }
 
+
 }
