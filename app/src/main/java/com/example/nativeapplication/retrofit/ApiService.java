@@ -21,4 +21,7 @@ public interface ApiService {
 
     @GET("serviceProfessionals")
     Call<ServiceProfessional> getServiceProfessionalFromId(@Query("id") Integer id);
+
+    @GET("serviceProfessionals")
+    Call<List<ServiceProfessional>> getServiceProfessionalFromCategory(@Query("service_subcategory") String subCategory);
 }
