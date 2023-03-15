@@ -51,6 +51,18 @@ public class ServicePersonList extends AppCompatActivity {
         //System.out.println("++++++++++++++++++"+subCategory);
         serviceProfessionals = new ArrayList<>();
         getServiceProfessionals();  // Get the list content from the REST api
+        List<ServiceProfessional> servicePersons = new ArrayList<>();
+        ServiceProfessional joe = new ServiceProfessional();
+        joe.setName("Joe Biden");joe.setPrice(250.0);
+        ServiceProfessional jane = new ServiceProfessional();
+        jane.setName("Jane Smith");jane.setPrice(349.0);
+        ServiceProfessional daniel = new ServiceProfessional();
+        daniel.setName("Daniel Lind");daniel.setPrice(300.0);
+        ServiceProfessional vera = new ServiceProfessional();
+        vera.setName("Vera Nilsson");vera.setPrice(499.0);
+        ServiceProfessional paul = new ServiceProfessional();
+        paul.setName("Paul George");paul.setPrice(449.0);
+        serviceProfessionals.add(joe);serviceProfessionals.add(jane);serviceProfessionals.add(daniel);serviceProfessionals.add(vera);serviceProfessionals.add(paul);
         /*
         List<Person> servicePersons = new ArrayList<>();
         Person[] persons = {
@@ -81,43 +93,57 @@ public class ServicePersonList extends AppCompatActivity {
             @Override
             public void onSuccess(List<ServiceProfessional> response) {
                 serviceProfessionals = response;
-                System.out.println("response = "+response);
+//                System.out.println("+++++++++++response = "+response);
             }
 
             @Override
             public void onFailure(Throwable t) {
                 // Show a message in the ListView when there are no service professionals available
-                ListView listView = findViewById(R.id.listArea);
-                listView.setVisibility(View.GONE);
-                TextView noProfessionals = findViewById(R.id.noProfessionals);
-                noProfessionals.setVisibility(View.VISIBLE);
+
+                List<ServiceProfessional> servicePersons = new ArrayList<>();
+                ServiceProfessional joe = new ServiceProfessional();
+                joe.setName("Joe Biden");joe.setPrice(250.0);
+                ServiceProfessional jane = new ServiceProfessional();
+                jane.setName("Jane Smith");jane.setPrice(349.0);
+                ServiceProfessional daniel = new ServiceProfessional();
+                daniel.setName("Daniel Lind");daniel.setPrice(300.0);
+                ServiceProfessional vera = new ServiceProfessional();
+                vera.setName("Vera Nilsson");vera.setPrice(499.0);
+                ServiceProfessional paul = new ServiceProfessional();
+                paul.setName("Paul George");paul.setPrice(449.0);
+                serviceProfessionals.add(joe);serviceProfessionals.add(jane);serviceProfessionals.add(daniel);serviceProfessionals.add(vera);serviceProfessionals.add(paul);
+
+//                ListView listView = findViewById(R.id.listArea);
+//                listView.setVisibility(View.GONE);
+//                TextView noProfessionals = findViewById(R.id.noProfessionals);
+//                noProfessionals.setVisibility(View.VISIBLE);
             }
         }, subCategory);
     }
-    /*
-    public class Person {
-        private int avatar;
-        private String name;
-        private String price;
 
-        public Person(int avatar, String name, String price) {
-            this.avatar = avatar;
-            this.name = name;
-            this.price = price;
-        }
-
-        public int getAvatar() {
-            return avatar;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-    }*/
+//    public class Person {
+//        private int avatar;
+//        private String name;
+//        private String price;
+//
+//        public Person(int avatar, String name, String price) {
+//            this.avatar = avatar;
+//            this.name = name;
+//            this.price = price;
+//        }
+//
+//        public int getAvatar() {
+//            return avatar;
+//        }
+//
+//        public String getName() {
+//            return name;
+//        }
+//
+//        public String getPrice() {
+//            return price;
+//        }
+//    }
 
     public class ServicePersonAdapter extends BaseAdapter {
 
@@ -158,7 +184,7 @@ public class ServicePersonList extends AppCompatActivity {
             //avatarImageView.setImageResource(servicePerson.getAvatar());
             avatarImageView.setImageResource(R.drawable.avatar);
             nameTextView.setText(servicePerson.getName());
-            priceTextView.setText(servicePerson.getPrice().toString());
+            priceTextView.setText(servicePerson.getPrice().toString()+"SEK");
 
             convertView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, BookingActivity.class);
