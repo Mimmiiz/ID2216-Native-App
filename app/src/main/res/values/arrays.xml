@@ -10,7 +10,8 @@
     </string-array>
     <string-array name="service_array">
     <item>Select a service</item>
-    <item>Men\'s &amp; Women\'s Salon</item>
+    <item>Men\'s salon</item>
+    <item>Women\'s salon</item>
     <item>SPA &amp; Massage</item>
     <item>Facial &amp; Clean-ups</item>
     <item>Repair Appliances</item>
