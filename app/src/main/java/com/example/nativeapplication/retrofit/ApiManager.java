@@ -1,9 +1,15 @@
 package com.example.nativeapplication.retrofit;
 
-import android.util.Log;
+import static java.security.AccessController.getContext;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.nativeapplication.model.Customer;
 import com.example.nativeapplication.model.ServiceProfessional;
 import com.example.nativeapplication.model.TimeSlot;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -26,7 +32,7 @@ public class ApiManager {
 
     private ApiManager() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://snap-app.herokuapp.com/")
+                .baseUrl("https://snap-app.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
@@ -107,7 +113,7 @@ public class ApiManager {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 Log.d("RESPONSE", response.code() + " ");
-                if (response.code()==200) {
+                if (response.code() == 200) {
                     callback.onSuccess(response.body());
                 } else {
                     callback.onFailure(new Exception(response.message()));
@@ -116,6 +122,29 @@ public class ApiManager {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+
+    public void createCustomer(final ApiCallback<Customer> callback, Customer customer) {
+        Call<Customer> call = apiService.createCustomer(customer);
+
+        call.enqueue(new Callback<Customer>() {
+
+            @Override
+            public void onResponse(Call<Customer> call, Response<Customer> response) {
+                Log.d("RESPONSE", response.code() + " ");
+                if (response.code() == 200) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFailure(new Exception(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Customer> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
