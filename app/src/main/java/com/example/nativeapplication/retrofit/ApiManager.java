@@ -86,6 +86,26 @@ public class ApiManager {
         });
     }
 
+    public void getServiceProfessionalByCategory(final ApiCallback<List<ServiceProfessional>> callback, String subCategory){
+        Call<List<ServiceProfessional>> call = apiService.getServiceProfessionalFromCategory(subCategory);
+        call.enqueue(new Callback<List<ServiceProfessional>>() {
+            @Override
+            public void onResponse(Call<List<ServiceProfessional>> call, Response<List<ServiceProfessional>> response) {
+                if (response.isSuccessful()){
+                    List<ServiceProfessional> serviceProfessionals = response.body();
+                    callback.onSuccess(serviceProfessionals);
+                }else{
+                    callback.onFailure(new Exception(response.message()));
+                }
+            }
+            @Override
+            public void onFailure(Call<List<ServiceProfessional>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 
     public void saveServiceProfessional(final ApiCallback<Object> callback, ServiceProfessional serviceProfessional) {
         Call<Object> call = serviceProfessionalApi.save(serviceProfessional);

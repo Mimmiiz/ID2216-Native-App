@@ -43,7 +43,7 @@ public class ServicesSubcategories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ServicesSubcategories.this, ServicePersonList.class);
-                //i.putExtra("type", btn1.getText());
+                i.putExtra("type", btn1.getText());
 
                 startActivity(i);
             }

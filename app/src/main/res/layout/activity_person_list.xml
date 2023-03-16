@@ -45,4 +45,16 @@
         app:layout_constraintTop_toBottomOf="@+id/searchView">
 
     </ListView>
+
+    <TextView
+        android:id="@+id/noProfessionals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No professionals available now."
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,8 +24,11 @@ public interface ApiService {
     @GET("serviceProfessionals")
     Call<ServiceProfessional> getServiceProfessionalFromId(@Query("id") Integer id);
 
+
     @Headers("Accept-Language: en-SE")
     @POST("customers-post")
     Call<Customer> createCustomer(@Body Customer customer);
 
+    @GET("getServiceProfessionalFromCategory")
+    Call<List<ServiceProfessional>> getServiceProfessionalFromCategory(@Query("service_subcategory") String subCategory);
 }
