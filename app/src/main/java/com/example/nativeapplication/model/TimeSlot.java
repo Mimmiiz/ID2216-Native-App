@@ -21,4 +21,18 @@ public class TimeSlot {
     public ServiceProfessional getServiceProfessional() {
         return serviceProfessional;
     }
+
+    public void setId(Integer id) { this.id = id; }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setBooked(Boolean booked) {
+        this.booked = booked;
+    }
+
+    public void setServiceProfessional(ServiceProfessional serviceProfessional) {
+        this.serviceProfessional = serviceProfessional;
+    }
 }
