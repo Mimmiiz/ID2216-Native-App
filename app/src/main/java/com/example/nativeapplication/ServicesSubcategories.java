@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ public class ServicesSubcategories extends AppCompatActivity {
 
         for (int i = 0; i < value.length; i++) {
             addButton(value[i], buttonHeight, i+1);
+            Log.d("subcategory string",value[i]);
         }
     }
 

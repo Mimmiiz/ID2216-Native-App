@@ -11,8 +11,11 @@ import com.example.nativeapplication.model.TimeSlot;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,8 +34,14 @@ public class ApiManager {
     }
 
     private ApiManager() {
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+//                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://snap-app.herokuapp.com/")
+//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
@@ -86,26 +95,33 @@ public class ApiManager {
         });
     }
 
-    public void getServiceProfessionalByCategory(final ApiCallback<List<ServiceProfessional>> callback, String subCategory){
-        Call<List<ServiceProfessional>> call = apiService.getServiceProfessionalFromCategory(subCategory);
+    public void getServiceProfessionalByCategory(final ApiCallback<List<ServiceProfessional>> callback, String subCategory) throws UnsupportedEncodingException {
+        Log.d("API subCategory", subCategory);
+        String encodedSubCategory = URLEncoder.encode(subCategory, "UTF-8");
+        Log.d("API encoded subCategory", encodedSubCategory);
+        Call<List<ServiceProfessional>> call = apiService.getServiceProfessionalFromCategory(encodedSubCategory);
+        Log.d("call info",call.toString());
         call.enqueue(new Callback<List<ServiceProfessional>>() {
             @Override
             public void onResponse(Call<List<ServiceProfessional>> call, Response<List<ServiceProfessional>> response) {
                 if (response.isSuccessful()){
+//                    Log.d("API on response: ", response.body().toString());
                     List<ServiceProfessional> serviceProfessionals = response.body();
+                    Log.d("API onResponse", "Received " + serviceProfessionals.size() + " service professionals");
                     callback.onSuccess(serviceProfessionals);
                 }else{
+                    Log.e("API response failed",response.message());
                     callback.onFailure(new Exception(response.message()));
                 }
             }
             @Override
             public void onFailure(Call<List<ServiceProfessional>> call, Throwable t) {
-
+                Log.d("API onFailure", "cannot received response");
+                callback.onFailure(t);
             }
         });
 
     }
-
 
     public void saveServiceProfessional(final ApiCallback<Object> callback, ServiceProfessional serviceProfessional) {
         Call<Object> call = serviceProfessionalApi.save(serviceProfessional);
