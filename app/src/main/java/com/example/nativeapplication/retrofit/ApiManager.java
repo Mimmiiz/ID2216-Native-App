@@ -34,14 +34,8 @@ public class ApiManager {
     }
 
     private ApiManager() {
-//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        OkHttpClient client = new OkHttpClient.Builder()
-//                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-//                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://snap-app.herokuapp.com/")
-//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
@@ -96,19 +90,14 @@ public class ApiManager {
     }
 
     public void getServiceProfessionalByCategory(final ApiCallback<List<ServiceProfessional>> callback, String subCategory) throws UnsupportedEncodingException {
-        Log.d("API subCategory", subCategory);
-        String encodedSubCategory = URLEncoder.encode(subCategory, "UTF-8");
-        Log.d("API encoded subCategory", encodedSubCategory);
-        Call<List<ServiceProfessional>> call = apiService.getServiceProfessionalFromCategory(encodedSubCategory);
-        Log.d("call info",call.toString());
+        Call<List<ServiceProfessional>> call = apiService.getServiceProfessionalFromCategory(subCategory);
         call.enqueue(new Callback<List<ServiceProfessional>>() {
             @Override
             public void onResponse(Call<List<ServiceProfessional>> call, Response<List<ServiceProfessional>> response) {
                 if (response.isSuccessful()){
-//                    Log.d("API on response: ", response.body().toString());
                     List<ServiceProfessional> serviceProfessionals = response.body();
                     Log.d("API onResponse", "Received " + serviceProfessionals.size() + " service professionals");
-                    callback.onSuccess(serviceProfessionals);
+                    callback.onSuccess(response.body());
                 }else{
                     Log.e("API response failed",response.message());
                     callback.onFailure(new Exception(response.message()));
@@ -116,11 +105,10 @@ public class ApiManager {
             }
             @Override
             public void onFailure(Call<List<ServiceProfessional>> call, Throwable t) {
-                Log.d("API onFailure", "cannot received response");
+                Log.d("API onFailure", t.toString());
                 callback.onFailure(t);
             }
         });
-
     }
 
     public void saveServiceProfessional(final ApiCallback<Object> callback, ServiceProfessional serviceProfessional) {
