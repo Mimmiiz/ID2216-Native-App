@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,16 +37,36 @@ public class ServicePersonList extends AppCompatActivity {
         setContentView(R.layout.activity_person_list);
 
         searchView = findViewById(R.id.searchView);
+        searchView.setIconifiedByDefault (false);
+//        searchView.setInputType (InputType.TYPE_NULL);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Do something when the user submits a search query
+                String userInput = query.toLowerCase();
+                List<ServiceProfessional> filteredList = new ArrayList<>();
+                for (ServiceProfessional serviceProfessional : serviceProfessionals) {
+                    if (serviceProfessional.getName().toLowerCase().contains(userInput)) {
+                        filteredList.add(serviceProfessional);
+                    }
+                }
+                ServicePersonAdapter adapter = new ServicePersonAdapter(ServicePersonList.this, filteredList);
+                listView.setAdapter(adapter);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Do something when the user changes the search query
+                // Filter the list when the user changes the search query
+                String userInput = newText.toLowerCase();
+                List<ServiceProfessional> filteredList = new ArrayList<>();
+                for (ServiceProfessional serviceProfessional : serviceProfessionals) {
+                    if (serviceProfessional.getName().toLowerCase().contains(userInput)) {
+                        filteredList.add(serviceProfessional);
+                    }
+                }
+                ServicePersonAdapter adapter = new ServicePersonAdapter(ServicePersonList.this, filteredList);
+                listView.setAdapter(adapter);
                 return true;
             }
         });
