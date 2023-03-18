@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Salon Image Button Onclick navigate to Service Page Screen
         ImageButton imageButton = findViewById(R.id.imageButton8);
         imageButton.setOnClickListener(v -> {
-            String value= "Men's Salon,Women's Salon,SPA & Massage,Facial & Clean-ups";
+            String value= "Men's Salon;Women's Salon;SPA & Massage;Facial & Clean-ups";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Salon Button Onclick navigate to Service Page Screen
         Button myButton1 = findViewById(R.id.button10);
         myButton1.setOnClickListener(v -> {
-            String value= "Men's salon,Women's salon,SPA & Massage,Facial & Clean-ups";
+            String value= "Men's salon;Women's salon;SPA & Massage;Facial & Clean-ups";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Electrician Image Button Onclick navigate to Service Page Screen
         ImageButton imageButton1 = findViewById(R.id.imageButton9);
         imageButton1.setOnClickListener(v -> {
-            String value= "Appliances,Switch & Socket,Wiring,Light";
+            String value= "Repair Appliances;Wiring, Light & Switch";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Electrician Button Onclick navigate to Service Page Screen
         Button myButton2 = findViewById(R.id.button11);
         myButton2.setOnClickListener(v -> {
-            String value= "Appliances,Switch & Socket,Wiring,Light";
+            String value= "Repair Appliances;Wiring, Light & Switch";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Plumber Image Button Onclick navigate to Service Page Screen
         ImageButton imageButton2 = findViewById(R.id.imageButton10);
         imageButton2.setOnClickListener(v -> {
-            String value= "Drainage Pipes,Basin & Toilets,Bath & Water Fittings,Grouting";
+            String value= "Drainage Pipes;Fittings, Bath & Toilets";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Plumber Button Onclick navigate to Service Page Screen
         Button myButton3 = findViewById(R.id.button12);
         myButton3.setOnClickListener(v -> {
-            String value= "Drainage Pipes,Basin & Toilets,Bath & Water Fittings,Grouting";
+            String value= "Drainage Pipes;Fittings, Bath & Toilets";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Others Image Button Onclick navigate to Service Page Screen
         ImageButton imageButton3 = findViewById(R.id.imageButton11);
         imageButton3.setOnClickListener(v -> {
-            String value= "Baby Sitting,Furniture Repair,Drilling,Furniture Assembly";
+            String value= "Baby Sitting;Carpenter";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Others Button Onclick navigate to Service Page Screen
         Button myButton4 = findViewById(R.id.button13);
         myButton4.setOnClickListener(v -> {
-            String value= "Baby Sitting,Furniture Repair,Drilling,Furniture Assembly";
+            String value= "Baby Sitting;Carpenter";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);
