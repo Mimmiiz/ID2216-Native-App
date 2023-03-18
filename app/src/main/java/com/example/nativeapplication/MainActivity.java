@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //Functionality: Salon Image Button Onclick navigate to Service Page Screen
         ImageButton imageButton = findViewById(R.id.imageButton8);
         imageButton.setOnClickListener(v -> {
-            String value= "Men's Salon,Women's Salon,SPA & Massage,Facial & Clean-ups";
+            String value= "Men's salon,Women's salon,SPA & Massage,Facial & Clean-ups";
             Intent i = new Intent(MainActivity.this, ServicesSubcategories.class);
             i.putExtra("category", value);
             startActivity(i);

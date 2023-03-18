@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.nativeapplication.model.ServiceProfessional;
 import com.example.nativeapplication.retrofit.ApiManager;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,21 +50,25 @@ public class ServicePersonList extends AppCompatActivity {
             }
         });
         subCategory = getIntent().getStringExtra("type");
-        //System.out.println("++++++++++++++++++"+subCategory);
+        Log.d("++++++++++++++++++",subCategory);
         serviceProfessionals = new ArrayList<>();
-        getServiceProfessionals();  // Get the list content from the REST api
-        List<ServiceProfessional> servicePersons = new ArrayList<>();
-        ServiceProfessional joe = new ServiceProfessional();
-        joe.setName("Joe Biden");joe.setPrice(250.0);
-        ServiceProfessional jane = new ServiceProfessional();
-        jane.setName("Jane Smith");jane.setPrice(349.0);
-        ServiceProfessional daniel = new ServiceProfessional();
-        daniel.setName("Daniel Lind");daniel.setPrice(300.0);
-        ServiceProfessional vera = new ServiceProfessional();
-        vera.setName("Vera Nilsson");vera.setPrice(499.0);
-        ServiceProfessional paul = new ServiceProfessional();
-        paul.setName("Paul George");paul.setPrice(449.0);
-        serviceProfessionals.add(joe);serviceProfessionals.add(jane);serviceProfessionals.add(daniel);serviceProfessionals.add(vera);serviceProfessionals.add(paul);
+        try {
+            getServiceProfessionals();  // Get the list content from the REST api
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+//        List<ServiceProfessional> servicePersons = new ArrayList<>();
+//        ServiceProfessional joe = new ServiceProfessional();
+//        joe.setName("Joe Biden");joe.setPrice(250.0);
+//        ServiceProfessional jane = new ServiceProfessional();
+//        jane.setName("Jane Smith");jane.setPrice(349.0);
+//        ServiceProfessional daniel = new ServiceProfessional();
+//        daniel.setName("Daniel Lind");daniel.setPrice(300.0);
+//        ServiceProfessional vera = new ServiceProfessional();
+//        vera.setName("Vera Nilsson");vera.setPrice(499.0);
+//        ServiceProfessional paul = new ServiceProfessional();
+//        paul.setName("Paul George");paul.setPrice(449.0);
+//        serviceProfessionals.add(joe);serviceProfessionals.add(jane);serviceProfessionals.add(daniel);serviceProfessionals.add(vera);serviceProfessionals.add(paul);
         /*
         List<Person> servicePersons = new ArrayList<>();
         Person[] persons = {
@@ -88,11 +94,21 @@ public class ServicePersonList extends AppCompatActivity {
 //        });
     }
 
-    private void getServiceProfessionals(){
+    private void getServiceProfessionals() throws UnsupportedEncodingException {
         MainActivity.apiManager.getServiceProfessionalByCategory(new ApiManager.ApiCallback<List<ServiceProfessional>>() {
             @Override
             public void onSuccess(List<ServiceProfessional> response) {
-                serviceProfessionals = response;
+//                System.out.println("_+_+_+_+_+_+_"+response.get(0));
+//                serviceProfessionals = response;
+                Log.d("API onSuccess", "response received");
+                for(ServiceProfessional serviceProfessional: response){
+                    ServiceProfessional serviceProfessional1 = new ServiceProfessional();
+                    System.out.println("------"+serviceProfessional.getName());
+                    serviceProfessional1.setName(serviceProfessional.getName());
+                    serviceProfessional1.setPrice(serviceProfessional.getPrice());
+                    serviceProfessionals.add(serviceProfessional1);
+
+                }
 //                System.out.println("+++++++++++response = "+response);
             }
 
@@ -100,23 +116,23 @@ public class ServicePersonList extends AppCompatActivity {
             public void onFailure(Throwable t) {
                 // Show a message in the ListView when there are no service professionals available
 
-                List<ServiceProfessional> servicePersons = new ArrayList<>();
-                ServiceProfessional joe = new ServiceProfessional();
-                joe.setName("Joe Biden");joe.setPrice(250.0);
-                ServiceProfessional jane = new ServiceProfessional();
-                jane.setName("Jane Smith");jane.setPrice(349.0);
-                ServiceProfessional daniel = new ServiceProfessional();
-                daniel.setName("Daniel Lind");daniel.setPrice(300.0);
-                ServiceProfessional vera = new ServiceProfessional();
-                vera.setName("Vera Nilsson");vera.setPrice(499.0);
-                ServiceProfessional paul = new ServiceProfessional();
-                paul.setName("Paul George");paul.setPrice(449.0);
-                serviceProfessionals.add(joe);serviceProfessionals.add(jane);serviceProfessionals.add(daniel);serviceProfessionals.add(vera);serviceProfessionals.add(paul);
+//                List<ServiceProfessional> servicePersons = new ArrayList<>();
+//                ServiceProfessional joe = new ServiceProfessional();
+//                joe.setName("Joe Biden");joe.setPrice(250.0);
+//                ServiceProfessional jane = new ServiceProfessional();
+//                jane.setName("Jane Smith");jane.setPrice(349.0);
+//                ServiceProfessional daniel = new ServiceProfessional();
+//                daniel.setName("Daniel Lind");daniel.setPrice(300.0);
+//                ServiceProfessional vera = new ServiceProfessional();
+//                vera.setName("Vera Nilsson");vera.setPrice(499.0);
+//                ServiceProfessional paul = new ServiceProfessional();
+//                paul.setName("Paul George");paul.setPrice(449.0);
+//                serviceProfessionals.add(joe);serviceProfessionals.add(jane);serviceProfessionals.add(daniel);serviceProfessionals.add(vera);serviceProfessionals.add(paul);
 
-//                ListView listView = findViewById(R.id.listArea);
-//                listView.setVisibility(View.GONE);
-//                TextView noProfessionals = findViewById(R.id.noProfessionals);
-//                noProfessionals.setVisibility(View.VISIBLE);
+                ListView listView = findViewById(R.id.listArea);
+                listView.setVisibility(View.GONE);
+                TextView noProfessionals = findViewById(R.id.noProfessionals);
+                noProfessionals.setVisibility(View.VISIBLE);
             }
         }, subCategory);
     }
