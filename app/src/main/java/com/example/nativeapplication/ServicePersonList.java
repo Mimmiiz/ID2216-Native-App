@@ -77,13 +77,13 @@ public class ServicePersonList extends AppCompatActivity {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-
+        /*
         ServicePersonAdapter adapter = new ServicePersonAdapter(this, serviceProfessionals);
         // Initialize the list and set an adapter for it
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.cons);
         layout.setBackgroundColor(Color.parseColor("#F1EDE7"));
         listView = findViewById(R.id.listArea);
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter);*/
     }
 
     private void getServiceProfessionals() throws UnsupportedEncodingException {
@@ -91,17 +91,28 @@ public class ServicePersonList extends AppCompatActivity {
             @Override
             public void onSuccess(List<ServiceProfessional> response) {
                 Log.d("API onSuccess", "response received");
+
                 for(ServiceProfessional serviceProfessional: response){
                     ServiceProfessional serviceProfessional1 = new ServiceProfessional();
                     serviceProfessional1.setName(serviceProfessional.getName());
                     serviceProfessional1.setPrice(serviceProfessional.getPrice());
+                    serviceProfessional1.setId(serviceProfessional.getId());
                     serviceProfessionals.add(serviceProfessional1);
+
                 }
                 if(serviceProfessionals.size()==0){
                     ListView listView = findViewById(R.id.listArea);
                     listView.setVisibility(View.GONE);
                     TextView noProfessionals = findViewById(R.id.noProfessionals);
                     noProfessionals.setVisibility(View.VISIBLE);
+                }
+                else {
+                    ServicePersonAdapter adapter = new ServicePersonAdapter(ServicePersonList.this, serviceProfessionals);
+                    // Initialize the list and set an adapter for it
+                    ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.cons);
+                    layout.setBackgroundColor(Color.parseColor("#F1EDE7"));
+                    listView = findViewById(R.id.listArea);
+                    listView.setAdapter(adapter);
                 }
 //                System.out.println("+++++++++++response = "+response);
             }
@@ -156,7 +167,7 @@ public class ServicePersonList extends AppCompatActivity {
             //avatarImageView.setImageResource(servicePerson.getAvatar());
             avatarImageView.setImageResource(R.drawable.avatar);
             nameTextView.setText(servicePerson.getName());
-            priceTextView.setText(servicePerson.getPrice().toString()+"SEK");
+            priceTextView.setText(servicePerson.getPrice().toString()+ " SEK");
 
             convertView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, BookingActivity.class);
@@ -164,6 +175,7 @@ public class ServicePersonList extends AppCompatActivity {
                 intent.putExtra("personAvatar", R.drawable.avatar);
                 intent.putExtra("personName", servicePerson.getName());
                 intent.putExtra("personPrice", servicePerson.getPrice());
+                intent.putExtra("personId", servicePerson.getId());
                 context.startActivity(intent);
             });
 

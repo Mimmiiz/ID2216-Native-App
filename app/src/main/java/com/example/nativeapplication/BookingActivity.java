@@ -4,6 +4,8 @@ import static com.example.nativeapplication.CalendarUtils.weekNumber;
 import static com.example.nativeapplication.CalendarUtils.datesOfWeek;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -34,6 +36,7 @@ public class BookingActivity extends AppCompatActivity {
     private Integer serviceProfessionalId;
     private TextView currentWeek;
     private TextView dateAndYear;
+    private TextView serviceSubcategoryView;
     private TextView serviceNameView;
     private TextView serviceDescriptionView;
     private TextView servicePriceView;
@@ -62,6 +65,9 @@ public class BookingActivity extends AppCompatActivity {
     private ArrayList<LocalDateTime> datesOfWeek = null;
     private TextView selectedBookableTimeView = null;
     private TimeSlot selectedTimeSlot = null;
+    private String personName;
+    private Integer personAvatar;
+    private Double personPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +75,12 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_booking);
         initWidgets();
 
-        String personName = getIntent().getStringExtra("personName");
-        int personAvatar = getIntent().getIntExtra("personAvatar", 0);
+        personName = getIntent().getStringExtra("personName");
+        personAvatar = getIntent().getIntExtra("personAvatar", 0);
+        serviceProfessionalId = getIntent().getIntExtra("personId", 0);
+        personPrice = getIntent().getDoubleExtra("personPrice", 0);
 
-        if (personName.equals("Joe Biden"))
-            serviceProfessionalId = 2;
-        else if (personName.equals("Jane Smith"))
-            serviceProfessionalId = 12;
-        else if (personName.equals("Daniel Lind"))
-            serviceProfessionalId = 22;
-        else if (personName.equals("Vera Nilsson"))
-            serviceProfessionalId = 32;
-        else
-            serviceProfessionalId = 42;
+        Log.d("Price", personPrice.toString());
 
         MainActivity.apiManager.getServiceProfessionalFromId(new ApiManager.ApiCallback<ServiceProfessional>() {
             @Override
@@ -102,7 +101,11 @@ public class BookingActivity extends AppCompatActivity {
             if (selectedTimeSlot != null) {
                 Intent i = new Intent(BookingActivity.this, Checkout.class);
                 i.putExtra("name", selectedTimeSlot.getServiceProfessional().getName());
-                i.putExtra("service", selectedTimeSlot.getServiceProfessional().getServiceName());
+                if (selectedTimeSlot.getServiceProfessional().getServiceName() != null) {
+                    i.putExtra("service", selectedTimeSlot.getServiceProfessional().getServiceName());
+                } else {
+                    i.putExtra("service", selectedTimeSlot.getServiceProfessional().getServiceSubcategory());
+                }
                 i.putExtra("price", selectedTimeSlot.getServiceProfessional().getPrice() + " SEK");
                 i.putExtra("phoneNumber", selectedTimeSlot.getServiceProfessional().getPhoneNumber());
                 i.putExtra("timeSlotId", selectedTimeSlot.getId());
@@ -131,6 +134,7 @@ public class BookingActivity extends AppCompatActivity {
         currentWeek = findViewById(R.id.booking_week_number);
         dateAndYear = findViewById(R.id.booking_start_end_dates);
         serviceNameView = findViewById(R.id.booking_service_name_text);
+        serviceSubcategoryView = findViewById(R.id.booking_service_subcategory_text);
         serviceDescriptionView = findViewById(R.id.booking_service_description_text);
         servicePriceView = findViewById(R.id.booking_service_price_text);
         servicePhoneNumberView = findViewById(R.id.booking_service_telephone_text);
@@ -180,15 +184,23 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private void showServiceDetails(ServiceProfessional serviceProfessionalDetails) {
-        /*if (serviceDetails.get("avatar") != null) {
-            personAvatarView.setImageResource((Integer) serviceDetails.get("avatar"));
-        }*/
-        personNameView.setText(serviceProfessionalDetails.getName());
+        if (!personAvatar.equals(0)) {
+            personAvatarView.setImageResource((Integer) personAvatar);
+        }
+        if (personName.length() > 15) {
+            personNameView.setTextSize(16);
+        }
+        personNameView.setText(personName);
         ratingTextView.setText(serviceProfessionalDetails.getRating().toString());
         ratingView.setRating((Float)serviceProfessionalDetails.getRating());
-        serviceNameView.setText(serviceProfessionalDetails.getServiceName());
+        serviceSubcategoryView.setText(serviceProfessionalDetails.getServiceSubcategory());
+        if (serviceProfessionalDetails.getServiceName() != null ) {
+            serviceNameView.setText(serviceProfessionalDetails.getServiceName());
+        } else {
+            serviceNameView.setText("");
+        }
 
-        String price = "Price: " + serviceProfessionalDetails.getPrice() + " SEK";
+        String price = "Price: " + personPrice + " SEK";
         servicePriceView.setText(price);
 
         serviceDescriptionView.setText(serviceProfessionalDetails.getServiceDescription());
@@ -224,7 +236,7 @@ public class BookingActivity extends AppCompatActivity {
 
                 for (TimeSlot timeSlot: response) {
                     LocalDateTime dateTime = LocalDateTime.parse(timeSlot.getDateTime(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    if (minDate.isBefore(dateTime.minusHours(1))) {
+                    if (minDate.isBefore(dateTime.minusHours(2))) {
                         View bookableTimeCell = inflater.inflate(R.layout.bookable_times_cell, parent, false);
                         TextView textView = (TextView) bookableTimeCell.findViewById(R.id.bookable_time_cell);
                         textView.setText(timeSlot.getDateTime().substring(11, 16));

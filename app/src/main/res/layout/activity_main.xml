@@ -91,20 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton9"
         app:srcCompat="@drawable/others" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="68dp"
-        android:backgroundTint="#555555"
-        android:text="@string/pyb"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton11" />
-
+    <!--
     <Button
         android:id="@+id/button6"
         android:layout_width="200dp"
@@ -119,7 +106,21 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.11" /> -->
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="108dp"
+        android:backgroundTint="#555555"
+        android:text="@string/pyb"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton11" />
 
     <Button
         android:id="@+id/button10"
