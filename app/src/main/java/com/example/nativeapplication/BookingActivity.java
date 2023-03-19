@@ -101,11 +101,7 @@ public class BookingActivity extends AppCompatActivity {
             if (selectedTimeSlot != null) {
                 Intent i = new Intent(BookingActivity.this, Checkout.class);
                 i.putExtra("name", selectedTimeSlot.getServiceProfessional().getName());
-                if (selectedTimeSlot.getServiceProfessional().getServiceName() != null) {
-                    i.putExtra("service", selectedTimeSlot.getServiceProfessional().getServiceName());
-                } else {
-                    i.putExtra("service", selectedTimeSlot.getServiceProfessional().getServiceSubcategory());
-                }
+                i.putExtra("service", selectedTimeSlot.getServiceProfessional().getServiceSubcategory());
                 i.putExtra("price", selectedTimeSlot.getServiceProfessional().getPrice() + " SEK");
                 i.putExtra("phoneNumber", selectedTimeSlot.getServiceProfessional().getPhoneNumber());
                 i.putExtra("timeSlotId", selectedTimeSlot.getId());
